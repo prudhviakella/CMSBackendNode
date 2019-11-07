@@ -1,8 +1,11 @@
 var mongoose = require("mongoose");
+var uniqid = require('uniqid');
 const Bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
+
 var EmployeeSchema = require("../model/employee");
+var TmpEmployeeSchema = require("../model/tmpemployee");
 var error_info = require("./error");
 var uri =
     "mongodb+srv://abylle:abylle@cluster0-db3tv.mongodb.net/EmployeeManagement?retryWrites=true&w=majority";
@@ -10,6 +13,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 var employee_info_model = mongoose.model("employee_main", EmployeeSchema);
+var tmpemployee_model = mongoose.model("tmpemployee", TmpEmployeeSchema);
 
 exports.create = async function(req, res) {
     try {
@@ -101,5 +105,13 @@ exports.saveskills = async function(req, res) {
         )
     } catch (error) {
         return res.status(400).send({ message: "some error while updating skills", error: error, error_info: error_info.errors[0] });
+    }
+
+    exports.createtmpemp = async function(req, res) {
+        try {
+
+        } catch (error) {
+            return res.status(400).send({ message: "some error while updating skills", error: error, error_info: error_info.errors[0] });
+        }
     }
 };
